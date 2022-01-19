@@ -8,7 +8,7 @@ async function connect() {
     console.log("already connected");
     return;
   }
-  //check the connection to see if it's already connected just disconnect
+  //check the connection to see if it's already connected then disconnect
   if (mongoose.connections.length > 0) {
     connection.isConnected = mongoose.connections[0].readyState;
     if (connection.isConnected === 1) {
