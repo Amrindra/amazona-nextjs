@@ -19,6 +19,7 @@ import db from "../../utils/db";
 import axios from "axios";
 
 function ProductScreen(props) {
+  const router = useRouter();
   const { dispatch } = useContext(Store);
 
   const classes = useStyles();
@@ -38,6 +39,7 @@ function ProductScreen(props) {
     }
     //when users click on add to cart button it will fire this dispatch function and will add this payload to the cart
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity: 1 } });
+    router.push("/cart");
   };
   return (
     <Layout title={product.name} description={product.description}>
