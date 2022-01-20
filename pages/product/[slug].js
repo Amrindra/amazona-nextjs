@@ -20,7 +20,7 @@ import axios from "axios";
 
 function ProductScreen(props) {
   const router = useRouter();
-  const { dispatch } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
 
   const classes = useStyles();
   const { product } = props;
@@ -30,15 +30,19 @@ function ProductScreen(props) {
   }
 
   const addToCartHandler = async () => {
+    const existItem = state.cart.cartItems.find(
+      (item) => item._id === product._id
+    );
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    // use axios.get to fetch API and then extract {data} object from the api
     const { data } = await axios.get(`/api/products/${product._id}`);
-    console.log(data);
-    console.log(await axios.get(`/api/products/${product._id}`));
-    if (data.countInStock <= 0) {
+    if (data.countInStock < quantity) {
       window.alert("Sorry, Proudct is out of stock");
       return;
     }
     //when users click on add to cart button it will fire this dispatch function and will add this payload to the cart
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity: 1 } });
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+    //redirect users to the cart screen after the users added items into cart
     router.push("/cart");
   };
   return (

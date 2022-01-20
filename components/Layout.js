@@ -70,7 +70,7 @@ function Layout({ title, children, description }) {
           <Toolbar>
             <NextLink href="/" passHref>
               <Link>
-                <Typography className={classes.brand}>amazona</Typography>
+                <Typography className={classes.brand}>Online Shop</Typography>
               </Link>
             </NextLink>
 
