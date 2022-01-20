@@ -36,6 +36,7 @@ function ProductScreen(props) {
     const quantity = existItem ? existItem.quantity + 1 : 1;
     // use axios.get to fetch API and then extract {data} object from the api
     const { data } = await axios.get(`/api/products/${product._id}`);
+    //if countInstock empty, we cannot add to cart and send message instead
     if (data.countInStock < quantity) {
       window.alert("Sorry, Proudct is out of stock");
       return;
